@@ -1,0 +1,43 @@
+{
+  "name": "@miloseng/otpmail",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-tenant OTP + Email workspace — API server and client prototypes",
+  "author": "Michael Lowenstein",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@10.12.1",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "----- LIFECYCLE -----": "",
+    "install:all": "pnpm install",
+    "clean": "pnpm -r run clean",
+    "build": "pnpm -r run build",
+    "----- API -----": "",
+    "api:local": "pnpm --filter @miloseng/otpmailapi local",
+    "api:build": "pnpm --filter @miloseng/otpmailapi build",
+    "api:start": "pnpm --filter @miloseng/otpmailapi start",
+    "api:test": "pnpm --filter @miloseng/otpmailapi test",
+    "api:migrate": "pnpm --filter @miloseng/otpmailapi migrate",
+    "api:lint": "pnpm --filter @miloseng/otpmailapi lint",
+    "----- REACT CLIENT -----": "",
+    "react:local": "pnpm --filter @miloseng/reactuser local",
+    "react:build": "pnpm --filter @miloseng/reactuser build",
+    "react:preview": "pnpm --filter @miloseng/reactuser preview",
+    "----- VUE CLIENT -----": "",
+    "vue:local": "pnpm --filter @miloseng/vueuser local",
+    "vue:build": "pnpm --filter @miloseng/vueuser build",
+    "vue:preview": "pnpm --filter @miloseng/vueuser preview",
+    "----- ANGULAR CLIENT -----": "",
+    "ng:local": "pnpm --filter @miloseng/nguser local",
+    "ng:build": "pnpm --filter @miloseng/nguser build",
+    "----- CROSS-CLIENT -----": "",
+    "dev": "pnpm -r --parallel run dev",
+    "dev:clients": "pnpm --filter './clients/*' --parallel run dev",
+    "lint": "pnpm -r run lint",
+    "format": "pnpm -r run format",
+    "typecheck": "pnpm -r run typecheck"
+  }
+}

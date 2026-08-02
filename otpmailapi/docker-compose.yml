@@ -1,0 +1,52 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+#  @msi/otp-email-api — Local Development Infrastructure
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+#  docker compose up -d        → start Postgres
+#  docker compose down         → stop (data persists in volume)
+#  docker compose down -v      → stop + destroy data
+#
+#  Port 5433 is used to avoid collision with any existing Postgres on 5432.
+#  The DATABASE_URL in .env matches this config out of the box.
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: otpmailcontainer
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: otpmailapi
+      POSTGRES_PASSWORD: nbtm 
+      POSTGRES_DB: otpmaildb
+    ports:
+      - "5433:5432"
+    volumes:
+      - otp_email_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U otp_api -d otp_email_api"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # ── Test database (same image, separate container + port) ──────────────────
+  postgres-test:
+    image: postgres:16-alpine
+    container_name: otpmailcontainertest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: otpmailapitest
+      POSTGRES_PASSWORD: nbtm
+      POSTGRES_DB: otpmaildbtest
+    ports:
+      - "5434:5432"
+    # No volume — test data is ephemeral
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U otp_api -d otp_email_api_test"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  otp_email_pgdata:

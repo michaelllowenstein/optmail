@@ -1,0 +1,19 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+#  @msi/otpmail — pnpm workspace settings
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Hoist common dependencies to the root node_modules so editors (VS Code,
+# Neovim LSP) can resolve them without per-package installs. Packages still
+# can only import what they explicitly declare — pnpm enforces this via
+# symlink isolation regardless of hoisting.
+shamefully-hoist=true
+
+# Prevent pnpm from erroring when a workspace package references another
+# workspace package that doesn't exist yet (nguser isn't built yet).
+ignore-workspace-root-check=true
+
+# Lock file at the root only — sub-packages don't get their own.
+shared-workspace-lockfile=true
+
+# Prefer offline resolution when possible (faster on repeat installs).
+prefer-offline=true
